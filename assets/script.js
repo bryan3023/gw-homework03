@@ -69,7 +69,7 @@ function generatePassword() {
     password += includedCharacters[getRandomInt(0, includedCharacters.length - 1)];
   }
 
-  console.log("Done!");
+  console.log("Done! Created password %i characters long.", password.length);
 
   return password;
 
