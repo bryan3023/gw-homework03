@@ -1,59 +1,21 @@
-// Assignment Code
+// --- Assignment provided ---
+
 var generateBtn = document.querySelector("#generate");
 
+// Write password to the #password input
+function writePassword() {
 
-/*
-  Return a random number within an inclusive range.
- */
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
 }
 
-
-/*
-  Ask the user to specify a password length within an inclusive
-  range, and return the answer.
- */
-function promptPasswordLength(minLength, maxLength) {
-  let passwordLength;
-
-  do {
-    passwordLength = prompt(
-      "How long do you want the password to be? Choose between " +
-      minLength + " and " + maxLength + " characters."
-    );
-    passwordLength = parseInt(passwordLength);
-  } while (isNaN(passwordLength) || passwordLength < minLength || passwordLength > maxLength);
-
-  console.log(" - Password length will be %i", passwordLength);
-
-  return passwordLength;
-}
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
 
 
-/*
-  Ask the user whether a given set of characters should be used to
-  generate the password. If so, return the character set. If not,
-  return an empty string.
- */
-function confirmIncludeCharacters(characterSetName, characterSet) {
-  
-  let shouldIncludeChars = confirm(
-    "Would you like to include " +
-    characterSetName.toLowerCase() + "?"
-  );
-
-  if (shouldIncludeChars) {
-    console.log(" - %s will be included.", characterSetName);
-    return characterSet;
-  } else {
-    console.log(" - %s will not be included.", characterSetName);
-    return "";
-  }
-}
-
+// --- Solution code begins ---
 
 /*
   Ask the user a series of questions, then generate and return a
@@ -96,15 +58,53 @@ function generatePassword() {
 }
 
 
-// Write password to the #password input
-function writePassword() {
+/*
+  Ask the user to specify a password length within an inclusive
+  range, and return the answer.
+ */
+function promptPasswordLength(minLength, maxLength) {
+  let passwordLength;
 
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  do {
+    passwordLength = prompt(
+      "How long do you want the password to be? Choose between " +
+      minLength + " and " + maxLength + " characters."
+    );
+    passwordLength = parseInt(passwordLength);
+  } while (isNaN(passwordLength) || passwordLength < minLength || passwordLength > maxLength);
 
-  passwordText.value = password;
+  console.log(" - Password length will be %i", passwordLength);
 
+  return passwordLength;
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+
+/*
+  Ask the user whether a given set of characters should be used to
+  generate the password. If so, return the character set. If not,
+  return an empty string.
+ */
+function confirmIncludeCharacters(characterSetName, characterSet) {
+  let shouldIncludeChars = confirm(
+    "Would you like to include " +
+    characterSetName.toLowerCase() + "?"
+  );
+
+  if (shouldIncludeChars) {
+    console.log(" - %s will be included.", characterSetName);
+    return characterSet;
+  } else {
+    console.log(" - %s will not be included.", characterSetName);
+    return "";
+  }
+}
+
+
+/*
+  Return a random number within an inclusive range.
+ */
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
