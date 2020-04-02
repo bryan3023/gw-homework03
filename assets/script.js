@@ -26,7 +26,7 @@ function promptPasswordLength() {
 
 function confirmIncludeCharacters(characterName, characters) {
   
-  shouldInclude = confirm(
+  let shouldInclude = confirm(
     "Would you like to include " +
     characterName.toLowerCase() + "?"
   );
@@ -47,13 +47,13 @@ function generatePassword() {
     special = " `~!@#$%^&*()_+-=[]\\{}|;':\",./<>?";
 
   let
-    length,
+    passwordLength,
     includedCharacters,
     password = "";
 
   console.log("Begin generating password:");
 
-  length = promptPasswordLength();
+  passwordLength = promptPasswordLength();
  
   includedCharacters = confirmIncludeCharacters("Lowercase letters", letters);
   includedCharacters += confirmIncludeCharacters("Uppercase letters", letters.toUpperCase());
@@ -65,7 +65,7 @@ function generatePassword() {
     return "";
   }
 
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < passwordLength; i++) {
     password += includedCharacters[getRandomInt(0, includedCharacters.length - 1)];
   }
 
