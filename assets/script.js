@@ -1,3 +1,5 @@
+"use strict";
+
 // --- Assignment provided ---
 
 var generateBtn = document.querySelector("#generate");
