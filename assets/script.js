@@ -1,47 +1,68 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+
+/*
+  Return a random number within an inclusive range.
+ */
 function getRandomInt(min, max) {
-  return Math.floor(Math.random() * max) + min;
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function promptPasswordLength() {
-  let
-    min = 8,
-    max = 128,
-    length;
+
+/*
+  Ask the user to specify a password length within an inclusive
+  range, and return the answer.
+ */
+function promptPasswordLength(minLength, maxLength) {
+  let passwordLength;
 
   do {
-    length = prompt(
+    passwordLength = prompt(
       "How long do you want the password to be? Choose between " +
-      min + " and " + max + " characters."
+      minLength + " and " + maxLength + " characters."
     );
-    length = parseInt(length);
-  } while (isNaN(length) || length < min || length > max);
+    passwordLength = parseInt(passwordLength);
+  } while (isNaN(passwordLength) || passwordLength < minLength || passwordLength > maxLength);
 
-  console.log(" - Password length will be %i", length);
+  console.log(" - Password length will be %i", passwordLength);
 
-  return length;
+  return passwordLength;
 }
 
-function confirmIncludeCharacters(characterName, characters) {
+
+/*
+  Ask the user whether a given set of characters should be used to
+  generate the password. If so, return the character set. If not,
+  return an empty string.
+ */
+function confirmIncludeCharacters(characterSetName, characterSet) {
   
-  let shouldInclude = confirm(
+  let shouldIncludeChars = confirm(
     "Would you like to include " +
-    characterName.toLowerCase() + "?"
+    characterSetName.toLowerCase() + "?"
   );
 
-  if (shouldInclude) {
-    console.log(" - %s will be included.", characterName);
-    return characters;
+  if (shouldIncludeChars) {
+    console.log(" - %s will be included.", characterSetName);
+    return characterSet;
   } else {
-    console.log(" - %s will not be included.", characterName);
+    console.log(" - %s will not be included.", characterSetName);
     return "";
   }
 }
 
+
+/*
+  Ask the user a series of questions, then generate and return a
+  random password.
+ */
 function generatePassword() {
   const
+    minLength = 8,
+    maxLength = 128,
     letters = "abcdefghijklmnopqrstuvwxyz",
     numbers = "0123456789",
     special = " `~!@#$%^&*()_+-=[]\\{}|;':\",./<>?";
@@ -53,7 +74,7 @@ function generatePassword() {
 
   console.log("Begin generating password:");
 
-  passwordLength = promptPasswordLength();
+  passwordLength = promptPasswordLength(minLength, maxLength);
  
   includedCharacters = confirmIncludeCharacters("Lowercase letters", letters);
   includedCharacters += confirmIncludeCharacters("Uppercase letters", letters.toUpperCase());
@@ -72,7 +93,6 @@ function generatePassword() {
   console.log("Done! Created password %i characters long.", password.length);
 
   return password;
-
 }
 
 
