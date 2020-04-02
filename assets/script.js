@@ -52,7 +52,7 @@ function generatePassword() {
     password += includedCharacters[getRandomInt(0, includedCharacters.length - 1)];
   }
 
-  console.log("Done! Created password %i characters long.", password.length);
+  console.log("Done! Created a password %i characters long.", password.length);
 
   return password;
 }
@@ -66,8 +66,12 @@ function promptPasswordLength(minLength, maxLength) {
   let passwordLength;
 
   do {
+    if (undefined !== passwordLength) {
+      alert("Please provide a valid number for your password's length!");
+    }
+
     passwordLength = prompt(
-      "How long do you want the password to be? Choose between " +
+      "How many characters do you want the password to be? Choose between " +
       minLength + " and " + maxLength + " characters."
     );
     passwordLength = parseInt(passwordLength);
