@@ -55,7 +55,7 @@ setUpperCaseLetters();
      an alert and abort.
    - given the specified criteria, generate a password.
    - if the password does not meet all criteria, try again.
-   - if the password doe meet all criteria, return it so it can
+   - if the password does meet all criteria, return it so it can
      be written to the page.
  */
 function generatePassword() {
