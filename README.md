@@ -14,7 +14,7 @@ The criteria for these passwords are as follows:
   - Numbers
   - Special characters (as specified in [OWASP's list](https://www.owasp.org/index.php/Password_special_characters))
 
-Based on the criteria the user select, the program will generate a password, and then run a series of checks to ensure it meets them all. There is a chance, particularly for small passwords, that not all of the specified character sets will be included. In such cases, the a new password will be generated until all tests pass..
+Based on the criteria the user select, the program will generate a password, and then run a series of checks to ensure it meets them. There is a chance, particularly for small passwords, that not all of the specified character sets will be included. In such cases, a new password will be generated until all tests pass.
 
 To use use this program, go to [the site](https://bryan3023.github.io/gw-homework03/) and click the *Generate Password* button. Then answer the sequence of prompts until a password is generated for you.
 
