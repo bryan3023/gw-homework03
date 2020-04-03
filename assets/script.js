@@ -79,7 +79,7 @@ function promptPasswordLength(minLength, maxLength) {
     passwordLength = parseInt(passwordLength);
   } while (isNaN(passwordLength) || passwordLength < minLength || passwordLength > maxLength);
 
-  console.log(" - Password length will be %i.", passwordLength);
+  console.log(" - Password length will be %i characters.", passwordLength);
 
   return passwordLength;
 }
