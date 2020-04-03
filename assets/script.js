@@ -19,44 +19,84 @@ generateBtn.addEventListener("click", writePassword);
 
 // --- Solution code begins ---
 
+const
+  minLength = 8,
+  maxLength = 128,
+  characterSets = [
+    {
+      name: "Lowercase letters",
+      characters: "abcdefghijklmnopqrstuvwxyz",
+      include: false
+    },
+    {
+      name: "Uppercase letters",
+      characters: null,
+      include: false
+    },
+    {
+      name: "Numbers",
+      characters: "0123456789",
+      include: false
+    },
+    {
+      name: "Special characters",
+      characters: " `~!@#$%^&*()_+-=[]\\{}|;':\",./<>?",
+      include: false
+    }
+  ];
+
+setUpperCaseLetters();
+
+
 /*
   Ask the user a series of questions, then generate and return a
   random password.
  */
 function generatePassword() {
-  const
-    minLength = 8,
-    maxLength = 128,
-    letters = "abcdefghijklmnopqrstuvwxyz",
-    numbers = "0123456789",
-    special = " `~!@#$%^&*()_+-=[]\\{}|;':\",./<>?";
-
   let
-    passwordLength,
-    includedCharacters,
-    password = "";
+    password = "",
+    parameters = getPasswordParameters();
 
-  console.log("Begin generating password:");
-
-  passwordLength = promptPasswordLength(minLength, maxLength);
- 
-  includedCharacters = confirmIncludeCharacters("Lowercase letters", letters);
-  includedCharacters += confirmIncludeCharacters("Uppercase letters", letters.toUpperCase());
-  includedCharacters += confirmIncludeCharacters("Numbers", numbers);
-  includedCharacters += confirmIncludeCharacters("Special characters", special);
-
-  if (0 === includedCharacters.length) {
+  if ("" === parameters.characters) {
     alert("You must include at least one type of character to generate a password!");
     return "";
   }
 
-  for (let i = 0; i < passwordLength; i++) {
-    password += includedCharacters[getRandomInt(0, includedCharacters.length - 1)];
+  for (let i = 0; i < parameters.length; i++) {
+    password += parameters.characters[getRandomInt(0, parameters.characters.length - 1)];
   }
 
   console.log("Done! Created a password %i characters long.", password.length);
 
   return password;
+}
+
+
+/*
+  Ask the user a series of questions, then return the specified
+  parameters.
+ */
+function getPasswordParameters() {
+  let
+    passwordLength,
+    includedCharacters = "";
+
+  console.group("Collecting password parameters:");
+
+  passwordLength = promptPasswordLength(minLength, maxLength);
+ 
+  for (let set of characterSets) {
+    if (set.include = confirmIncludeCharacters(set)) {
+      includedCharacters += set.characters;
+    }
+  }
+
+  console.groupEnd();
+
+  return {
+    length: passwordLength,
+    characters: includedCharacters
+  }
 }
 
 
@@ -79,7 +119,7 @@ function promptPasswordLength(minLength, maxLength) {
     passwordLength = parseInt(passwordLength);
   } while (isNaN(passwordLength) || passwordLength < minLength || passwordLength > maxLength);
 
-  console.log(" - Password length will be %i characters.", passwordLength);
+  console.log("Password length will be %i characters.", passwordLength);
 
   return passwordLength;
 }
@@ -87,21 +127,29 @@ function promptPasswordLength(minLength, maxLength) {
 
 /*
   Ask the user whether a given set of characters should be used to
-  generate the password. If so, return the character set. If not,
-  return an empty string.
+  generate the password.
  */
-function confirmIncludeCharacters(characterSetName, characterSet) {
+function confirmIncludeCharacters(set) {
   let shouldIncludeChars = confirm(
-    "Would you like to include " +
-    characterSetName.toLowerCase() + "?"
-  );
+    "Would you like to include " + set.name.toLowerCase() + "?");
 
   if (shouldIncludeChars) {
-    console.log(" - %s will be included.", characterSetName);
-    return characterSet;
+    console.log("%s will be included.", set.name);
+    return true;
   } else {
-    console.log(" - %s will not be included.", characterSetName);
-    return "";
+    console.log("%s will not be included.", set.name);
+    return false;
+  }
+}
+
+
+/*
+  Create the set of uppercase letters from the set of lowercase letters.
+ */
+function setUpperCaseLetters() {
+  if (null === characterSets[1].characters) {
+    characterSets[1].characters =
+        characterSets[0].characters.toUpperCase();
   }
 }
 

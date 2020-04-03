@@ -4,7 +4,7 @@
 
 This project is the deliverable for the **JavaScript** lesson's homework.
 
-It presents a simple web form from which users can generate passwords composed of random numbers.
+It presents a simple web form from which users can generate passwords composed of random characters.
 
 The criteria for these passwords are as follows:
 - The password length must be between 8 and 128 characters, inclusive.
