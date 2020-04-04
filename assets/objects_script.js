@@ -60,8 +60,8 @@ function generatePassword() {
  */
 let PasswordForm = {
   /*
-    Presents the user a sequence of prompts to collect the password criteria.
-    It's like a form, but more annoying!
+    Presents the user a sequence of prompts to collect criteria for a
+    password within an inclusive range. It's like a form, but more annoying!
    */
   requestPasswordCriteria:
     function(minLength,maxLength) {
