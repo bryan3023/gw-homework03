@@ -24,7 +24,7 @@ generateBtn.addEventListener("click", writePassword);
    - collect the criteria for password generation.
    - if the user doesn't specify at least one character set, show
      an alert and abort.
-   - given the specified criteria, generate a password.
+   - if the specified criteria are valid, generate a password.
    - if the password does not meet all criteria, try again.
    - if the password does meet all criteria, return it so it can
      be written to the page.
