@@ -35,7 +35,7 @@ function generatePassword() {
     maxLength = 128,
     password = "";
   
-  PasswordFrom.requestPasswordProperties(minLength, maxLength);
+  PasswordForm.requestPasswordProperties(minLength, maxLength);
 
   if (!PasswordCriteria.hasCharacterSets()) {
     alert("You must include at least one type of character to generate a password!");
@@ -93,7 +93,7 @@ let PasswordGenerator = {
   Since we're not writing to the page, the "form" is a sequence of
   prompts.
  */
-let PasswordFrom = {
+let PasswordForm = {
   /*
     Ask the user to specify a password length within an inclusive
     range, and return the answer.
