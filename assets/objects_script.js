@@ -165,7 +165,7 @@ let PasswordForm = {
 
 /*
   Manages criteria for both creating a password and
-  confirming a password confirm to them.
+  confirming a password conforms to them.
  */
 let PasswordCriteria = {
   passwordLength: null,
