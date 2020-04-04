@@ -35,7 +35,7 @@ function generatePassword() {
     maxLength = 128,
     password = "";
   
-  PasswordForm.requestPasswordProperties(minLength, maxLength);
+  PasswordForm.requestPasswordCriteria(minLength, maxLength);
 
   if (!PasswordCriteria.hasCharacterSets()) {
     alert("You must include at least one type of character to generate a password!");
@@ -53,47 +53,30 @@ function generatePassword() {
   return password;
 }
 
-let PasswordGenerator = {
-  /*
-    Creates a password based on collected criteria.
-   */
-  generatePassword:
-    function() {
-      let
-        characters = "",
-        password = "";
-    
-      for (let set of PasswordCriteria.characterSets) {
-        if (set.include) {
-          characters += set.characters;
-        }
-      }
-    
-      for (let i = 0; i < PasswordCriteria.passwordLength; i++) {
-        password += characters[this.getRandomInt(0, characters.length - 1)];
-      }
-    
-      return password;
-    },
-
-
-  /*
-    Helper function. Return a random number within an inclusive range.
-   */
-  getRandomInt:
-    function(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-}
-
 
 /*
   Since we're not writing to the page, the "form" is a sequence of
   prompts.
  */
 let PasswordForm = {
+  /*
+    Presents the user a sequence of prompts to collect the password criteria.
+    It's like a form, but more annoying!
+   */
+  requestPasswordCriteria:
+    function(minLength,maxLength) {
+      console.group("Collecting password parameters:");
+
+      PasswordCriteria.passwordLength = this.promptPasswordLength(minLength, maxLength);
+     
+      for (let set of PasswordCriteria.characterSets) {
+        set.include = this.confirmIncludeCharacters(set)
+      }
+    
+      console.groupEnd();    
+    },
+
+
   /*
     Ask the user to specify a password length within an inclusive
     range, and return the answer.
@@ -136,29 +119,10 @@ let PasswordForm = {
 
       if (shouldIncludeChars) {
         console.log("%s will be included.", set.name);
-        return true;
       } else {
         console.log("%s will not be included.", set.name);
-        return false;
       }
-    },
-
-  
-  /*
-    Presents the user a sequence of prompts to collect the password criteria.
-    It's like a form, but more annoying!
-   */
-  requestPasswordProperties:
-    function(minLength,maxLength) {
-      console.group("Collecting password parameters:");
-
-      PasswordCriteria.passwordLength = this.promptPasswordLength(minLength, maxLength);
-     
-      for (let set of PasswordCriteria.characterSets) {
-        set.include = this.confirmIncludeCharacters(set)
-      }
-    
-      console.groupEnd();    
+      return shouldIncludeChars;
     }
 }
 
@@ -195,18 +159,6 @@ let PasswordCriteria = {
 
 
   /*
-    Create the set of uppercase letters from the set of lowercase letters.
-   */
-  setUpperCaseLetters:
-    function() {
-      if (null === this.characterSets[1].characters) {
-        this.characterSets[1].characters =
-            this.characterSets[0].characters.toUpperCase();
-      }
-    },
-  
-  
-  /*
     Return true if the password criteria include at least one character
     set. Otherwise false.
    */
@@ -217,10 +169,61 @@ let PasswordCriteria = {
         hasSet = hasSet || set.include;
       }
       return hasSet;
+    },
+
+
+  /*
+    Create the set of uppercase letters from the set of lowercase letters.
+   */
+  setUpperCaseLetters:
+    function() {
+      if (null === this.characterSets[1].characters) {
+        this.characterSets[1].characters =
+            this.characterSets[0].characters.toUpperCase();
+      }
     }
 }
 
 PasswordCriteria.setUpperCaseLetters();
+
+
+/*
+  Creates a password based on collected criteria.
+ */
+let PasswordGenerator = {
+  /*
+    Returns a password.
+   */
+  generatePassword:
+    function() {
+      let
+        characters = "",
+        password = "";
+    
+      for (let set of PasswordCriteria.characterSets) {
+        if (set.include) {
+          characters += set.characters;
+        }
+      }
+    
+      for (let i = 0; i < PasswordCriteria.passwordLength; i++) {
+        password += characters[this.getRandomInt(0, characters.length - 1)];
+      }
+    
+      return password;
+    },
+
+
+  /*
+    Helper function. Return a random number within an inclusive range.
+   */
+  getRandomInt:
+    function(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+}
 
 
 /*
