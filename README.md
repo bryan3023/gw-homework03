@@ -18,6 +18,6 @@ Based on the criteria the user select, the program will generate a password, and
 
 To use use this program, go to [the site](https://bryan3023.github.io/gw-homework03/) and click the *Generate Password* button. Then answer the sequence of prompts until a password is generated for you.
 
-There is also [another version](https://bryan3023.github.io/gw-homework03/objects.html) that's functionally identical but attempts to incorporate a more object-oriented approach. It's very much a first effort; the code is longer, but maybe a bit more modular.
+There is also [older version](https://bryan3023.github.io/gw-homework03/first_effort.html) that's functionally identical but results from an earlier attempt. The current version tried to leverage objects more meaningfully. It's still not great - the code is longer - but it's at least a bit more modular.
 
 In both versions, you can use the Developer Tools Console to confirm you input is processed correctly.
