@@ -207,7 +207,7 @@ let PasswordCriteria = {
   
   
   /*
-    Return true if the password properties include at least one character
+    Return true if the password criteria include at least one character
     set. Otherwise false.
    */
   hasCharacterSets:
@@ -228,7 +228,7 @@ PasswordCriteria.setUpperCaseLetters();
  */
 let PasswordValidator = {
   /*
-    Confirm the password meets the requirements the user specified.
+    Confirm the password meets the requirements the user-specified criteria.
    */
   isValidPassword:
     function(password) {
