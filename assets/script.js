@@ -280,7 +280,7 @@ let PasswordValidator = {
    */
   testIncludesCharacters:
     function(password, set) {
-      if (this.hasOneMatch(password, set.characters)) {
+      if (this.hasMatch(password, set.characters)) {
         console.log("PASS: %s found.", set.name);
         return true;
       } else {
@@ -295,7 +295,7 @@ let PasswordValidator = {
     return true on the first character match between them. Return
     false if no matches found.
    */
-  hasOneMatch:
+  hasMatch:
     function(text, characters) {
       for (let c of characters) {
         if (-1 !== text.indexOf(c)) {
